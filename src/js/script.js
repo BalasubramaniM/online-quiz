@@ -32,7 +32,7 @@ function submitAnswer() {
   } else {
     el.classList.add("wrong-answer");
     document
-      .querySelectorAll('[isAnswer="true"]')
+      .querySelector('[isAnswer="true"]')
       .classList.add("correct-answer");
   }
 }
@@ -54,7 +54,8 @@ function getStarted() {
   const id = document.getElementById("current-question-id").value;
 
   showLoader();
-  document.getElementById("instructions-container").classList.add("hide");
+  document.getElementById("pre-quiz-instructions").classList.add("hide");
+  document.getElementById("start-button").classList.add("hide");
 
   fetchQuestions(id);
 }
@@ -65,7 +66,7 @@ const getOptions = (options, answer) =>
       `<div isAnswer=${
         index === answer
       }><input type="radio" name="radio-group" id="radio${index}" value=${option}/><label for="radio${index}">${option}</label></div>`
-  );
+  ).join('');
 
 function fetchQuestions(id) {
   fetch(`https://jsonmock.hackerrank.com/api/questions/${id}`)
@@ -77,6 +78,11 @@ function fetchQuestions(id) {
         console.log(body.data);
         const { question, options, answer } = body.data;
         document.getElementById("submit-button").disabled = true;
+
+        console.log(getOptions(
+            options,
+            answer
+          ))
 
         document.getElementById("question").innerHTML = question;
         document.getElementById("options-container").innerHTML = getOptions(
