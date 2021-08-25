@@ -2,7 +2,7 @@
 
 const generateQuestionId = () => {
   const id = randomIntInRange(0, 6);
-  document.getElementById('current-question-id').value = id.toString();
+  document.getElementById("current-question-id").value = id.toString();
 };
 
 const randomIntInRange = (min, max, notIn) => {
